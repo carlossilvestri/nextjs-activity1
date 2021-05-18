@@ -8,11 +8,11 @@ export default function UserPage({ user }) {
   useEffect(() => {
     if (router.query.q) {
       let { q } = router.query;
-      setcopyToClipboard(window.location.hostname + `/?q=${q}`)
+      setcopyToClipboard( 'https://' + window.location.hostname + `/?q=${q}`)
     }
     if (router.query.id) {
       let { id} = router.query;
-      setcopyToClipboard(window.location.hostname + `/?q=${id}`)
+      setcopyToClipboard( 'https://' + window.location.hostname + `/?q=${id}`)
     }
   }, [router]);
   const { _id, name } = user;
