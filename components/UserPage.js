@@ -1,7 +1,20 @@
-import { Fragment } from "react";
+import { Fragment, useState, useEffect } from "react";
 // import styles from "../styles/Home.module.css";
+import { useRouter } from "next/router";
 
 export default function UserPage({ user }) {
+  const router = useRouter();
+  const [copyToClipboard, setcopyToClipboard] = useState('');
+  useEffect(() => {
+    if (router.query.q) {
+      let { q } = router.query;
+      setcopyToClipboard(window.location.hostname + `/q=${q}`)
+    }
+    if (router.query.id) {
+      let { id} = router.query;
+      setcopyToClipboard(window.location.hostname + `/q=${id}`)
+    }
+  }, [router]);
   const { _id, name } = user;
   return (
     <Fragment>
@@ -16,7 +29,9 @@ export default function UserPage({ user }) {
                 </label>
               </div>
               <div className="row">
-                <button type="button" className="btn-principal mx-auto btn-crear">
+                <button type="button" className="btn-principal mx-auto btn-crear"
+                onClick={() =>  navigator.clipboard.writeText(copyToClipboard)}
+                >
                   Share
                 </button>
               </div>
